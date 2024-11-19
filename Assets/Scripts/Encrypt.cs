@@ -109,21 +109,5 @@ public class Encrypt : MonoBehaviour
             resultText.text = "Incorrect. Try again!";
             resultText.color = Color.red;
         }
-=======
-using UnityEngine;
-
-public class Encrypt : MonoBehaviour
-{
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
->>>>>>> Stashed changes
     }
 }
