@@ -4,13 +4,16 @@ using UnityEngine;
 public class Timer : MonoBehaviour
 {
     public TMP_Text timerText; // Reference to the TMP text displaying the time
+    public TMP_Text strikeText; // Reference to the TMP text displaying the strikes
     public float startTimeInSeconds = 300; // Default time in seconds (e.g., 5 minutes)
 
     private float timeRemaining;
     private bool isTimerRunning = false;
+    private int strikeCount = 0; // Counter for strikes
 
     void Start()
     {
+        strikeText.text = "";
         SetTime(startTimeInSeconds);
         StartTimer();
     }
@@ -61,5 +64,20 @@ public class Timer : MonoBehaviour
     {
         Debug.Log("Timer has ended!");
         // Add additional logic when the timer ends, if needed.
+    }
+
+    // Add a strike and handle related logic
+    public void AddStrike()
+    {
+        strikeCount++;
+        Debug.Log($"Strike added! Total strikes: {strikeCount}");
+        strikeText.text += "X";
+
+        // Optional: Take an action when strikes reach a certain number
+        if (strikeCount >= 3)
+        {
+            Debug.Log("Three strikes! Stopping the timer.");
+            StopTimer();
+        }
     }
 }
