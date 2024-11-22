@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Wire : MonoBehaviour
 {
@@ -14,15 +15,15 @@ public class Wire : MonoBehaviour
     public GameObject RedCut;
     public GameObject GreenCut;
 
-    public GameObject status;
-    public Material material1;
-    public Material material2;
-    public Material material3;
-    public Renderer statusObjectRenderer;
-    private bool isMaterial1Active = true;
+    private Material originalMaterial;
+    private Renderer wireRenderer;
+    public Outline outline;
+    private bool isHovered = false;
 
     void Start()
     {
+        outline.enabled = false;
+        isHovered = false;
         // Find the Timer script in the scene
         timer = FindFirstObjectByType<Timer>();
 
@@ -30,19 +31,29 @@ public class Wire : MonoBehaviour
         {
             Debug.LogError("Timer script not found in the scene!");
         }
-        InvokeRepeating("SwitchMaterial", 0f, 1f); // Call SwitchMaterial every second
+
+        wireRenderer = GetComponent<Renderer>();
+        if (wireRenderer != null)
+        {
+            originalMaterial = wireRenderer.material;
+        }
     }
 
-    void Update()
+    public void OnHoverEnter()
     {
-        if (Input.GetMouseButtonDown(0)) // Detect left mouse click
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out RaycastHit hit))
-            {
-                HandleWireCut(hit.collider.gameObject);
-            }
-        }
+        outline.enabled = true;
+        isHovered = true;
+    }
+
+    public void OnHoverExit()
+    {
+        outline.enabled = false;
+        isHovered = false;
+    }
+
+    public void OnSelect()
+    {
+        if (isHovered) HandleWireCut(Blue);
     }
 
     void HandleWireCut(GameObject wire)
@@ -52,49 +63,22 @@ public class Wire : MonoBehaviour
             Blue.SetActive(false);
             BlueCut.SetActive(true);
             timer.AddStrike();
-            CheckStatus();
         }
         else if (wire == Yellow)
         {
             Yellow.SetActive(false);
             YellowCut.SetActive(true);
-            CheckStatus();
         }
         else if (wire == Red)
         {
             Red.SetActive(false);
             RedCut.SetActive(true);
             timer.AddStrike();
-            CheckStatus();
         }
         else if (wire == Green)
         {
             Green.SetActive(false);
             GreenCut.SetActive(true);
-            CheckStatus();
-        }
-    }
-
-    void SwitchMaterial()
-    {
-        if (isMaterial1Active)
-        {
-            statusObjectRenderer.material = material2;
-        }
-        else
-        {
-            statusObjectRenderer.material = material1;
-        }
-
-        isMaterial1Active = !isMaterial1Active;
-    }
-
-    void CheckStatus()
-    {
-        if (YellowCut.gameObject.activeSelf && GreenCut.gameObject.activeSelf)
-        {
-            CancelInvoke("SwitchMaterial");
-            statusObjectRenderer.material = material3;
         }
     }
 }
