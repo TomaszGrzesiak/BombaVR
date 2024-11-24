@@ -119,7 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
-<<<<<<< Updated upstream
 --- !u!1 &33764632
 GameObject:
   m_ObjectHideFlags: 0
@@ -2568,8 +2567,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
-=======
->>>>>>> Stashed changes
 --- !u!1 &1715103272
 GameObject:
   m_ObjectHideFlags: 0
@@ -2580,10 +2577,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1715103274}
   - component: {fileID: 1715103273}
-<<<<<<< Updated upstream
   - component: {fileID: 1715103275}
-=======
->>>>>>> Stashed changes
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -2671,7 +2665,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
-<<<<<<< Updated upstream
 --- !u!114 &1715103275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2695,8 +2688,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
-=======
->>>>>>> Stashed changes
 --- !u!1 &2084334853
 GameObject:
   m_ObjectHideFlags: 0
@@ -2795,8 +2786,5 @@ SceneRoots:
   m_Roots:
   - {fileID: 2084334856}
   - {fileID: 1715103274}
-<<<<<<< Updated upstream
   - {fileID: 204922404}
   - {fileID: 478713053}
-=======
->>>>>>> Stashed changes
