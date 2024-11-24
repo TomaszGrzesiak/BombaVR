@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Wire : MonoBehaviour
+public class WrongWire : MonoBehaviour
 {
     private Timer timer;
     public GameObject Cut;
@@ -32,7 +32,7 @@ public class Wire : MonoBehaviour
         if (isHovered){
             this.gameObject.SetActive(false);
             Cut.SetActive(true);
-            timer.AddCompleted(0.5f);
+            timer.AddStrike();
         };
     }
 }

@@ -10,6 +10,7 @@ public class Timer : MonoBehaviour
     private float timeRemaining;
     private bool isTimerRunning = false;
     private int strikeCount = 0; // Counter for strikes
+    private float TasksCompleted = 0;
 
     void Start()
     {
@@ -79,5 +80,17 @@ public class Timer : MonoBehaviour
             Debug.Log("Three strikes! Stopping the timer.");
             StopTimer();
         }
+    }
+
+        public void AddCompleted(float add)
+    {
+        TasksCompleted += add;
+        Debug.Log($"Completed a task! Total : {TasksCompleted}");
+
+            if (TasksCompleted >= 6)
+            {
+                StopTimer();
+                timerText.text = "Nice";
+            }
     }
 }
