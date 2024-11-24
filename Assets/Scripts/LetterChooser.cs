@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class LetterChooser : MonoBehaviour
 {
-    public TextMeshProUGUI[] letterDisplays; // Letter display for each position
+    public TMP_InputField[] letterDisplays; // Letter display for each position
     public Button[] upButtons; // Up arrow buttons
     public Button[] downButtons; // Down arrow buttons
 

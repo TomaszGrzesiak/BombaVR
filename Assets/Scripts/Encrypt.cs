@@ -1,76 +1,54 @@
 using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 
 public class Encrypt : MonoBehaviour
 {
-     public TMP_InputField encodedWordInputField; // Input field for the encoded word (read-only)
-    public TMP_InputField decodedWordInputField; // Input field for user's decoded word
+    public TMP_InputField encodedWordInputField; // Input field for the encoded word (read-only)
     public TextMeshProUGUI shiftText; // Text field showing the shift value
     public TextMeshProUGUI resultText; // Text field for displaying result messages
     public Button checkButton; // Button to check the user's answer
     public Button reloadButton; // Button to reload with a new case
 
+    public LetterChooser letterChooser; // Reference to the LetterChooser class
+
     private string originalWord;
     private string encodedWord;
     private int shift;
 
-    private const string RandomWordAPI = "https://random-word-api.herokuapp.com/word?number=1";
+    private readonly string[] predefinedWords = { "start", "clean", "plane" }; // Predefined words
 
     void Start()
     {
-        // Fetch a random word from the API
-        StartCoroutine(FetchRandomWord());
+        // Initialize with a random word
+        LoadRandomWord();
         resultText.text = "";
 
         // Add listeners to buttons
         checkButton.onClick.AddListener(CheckDecodedWord);
-        reloadButton.onClick.AddListener(() => StartCoroutine(FetchRandomWord()));
+        reloadButton.onClick.AddListener(LoadRandomWord);
     }
 
-    IEnumerator FetchRandomWord()
+    void LoadRandomWord()
     {
-        resultText.text = "Loading..."; // Indicate loading
-        UnityWebRequest request = UnityWebRequest.Get(RandomWordAPI);
-        yield return request.SendWebRequest();
+        resultText.text = ""; // Clear result message
 
-        if (request.result == UnityWebRequest.Result.Success)
-        {
-            // Parse the API response
-            string jsonResponse = request.downloadHandler.text;
-            originalWord = jsonResponse.Trim(new char[] { '[', ']', '"' }); // Clean up response
+        // Select a random word from the predefined list
+        originalWord = predefinedWords[Random.Range(0, predefinedWords.Length)];
 
-            // Generate a random shift
-            shift = Random.Range(1, 26);
+        // Generate a random shift
+        shift = Random.Range(1, 26);
 
-            // Encode the selected word
-            encodedWord = EncodeWord(originalWord, shift);
+        // Encode the selected word
+        encodedWord = EncodeWord(originalWord, shift);
 
-            // Display the encoded word and shift value
-            encodedWordInputField.text = encodedWord;
-            shiftText.text = shift.ToString();
+        // Display the encoded word and shift value
+        encodedWordInputField.text = encodedWord;
+        shiftText.text = shift.ToString();
 
-            // Clear input and result message
-            decodedWordInputField.text = "";
-            resultText.text = "";
-        }
-        else
-        {
-            Debug.LogError("Failed to fetch random word: " + request.error);
-            resultText.text = "Error fetching word. Try again!";
-            originalWord = "hello"; // Fallback word
-
-            // Generate a random shift and encode fallback word
-            shift = Random.Range(1, 26);
-            encodedWord = EncodeWord(originalWord, shift);
-
-            // Update UI with fallback
-            encodedWordInputField.text = encodedWord;
-            shiftText.text = shift.ToString();
-        }
+        // Reset the LetterChooser
+        letterChooser.ResetChooser();
     }
 
     // Encode the word using Caesar cipher logic
@@ -97,7 +75,7 @@ public class Encrypt : MonoBehaviour
     // Decode and validate user's input
     void CheckDecodedWord()
     {
-        string userDecodedWord = decodedWordInputField.text.ToLower();
+        string userDecodedWord = letterChooser.GetChosenWord(); // Get the word from LetterChooser
         if (userDecodedWord == originalWord)
         {
             resultText.text = "Correct! You decoded the word!";
