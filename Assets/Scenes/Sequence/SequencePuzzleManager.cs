@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class SequencePuzzleManager : MonoBehaviour
 {
-    // List of light objects
+    public Timer timer;
+
     public GameObject[] lightObjects;
     public GameObject[] buttonObjects;
 
@@ -15,7 +16,7 @@ public class SequencePuzzleManager : MonoBehaviour
 
     // Feedback objects
     public GameObject correctFeedbackObject; // Green object
-    public GameObject incorrectFeedbackObject; // Red object
+    public GameObject wrongFeedbackObject; // Red object
 
     // Flag to prevent re-triggering the sequence
     private bool isSequenceActive = false;
@@ -25,8 +26,8 @@ public class SequencePuzzleManager : MonoBehaviour
         if (correctFeedbackObject != null)
             correctFeedbackObject.SetActive(false);
 
-        if (incorrectFeedbackObject != null)
-            incorrectFeedbackObject.SetActive(false);
+        if (wrongFeedbackObject != null)
+            wrongFeedbackObject.SetActive(false);
     }
 
     private IEnumerator ActivateSequence()
@@ -58,65 +59,33 @@ public class SequencePuzzleManager : MonoBehaviour
         isSequenceActive = false;
     }
 
-
-    // Update is called once per frame
-    void Update()
+    public void PlaySeq()
     {
-        // Trigger activation sequence with Space key
-        if (Input.GetKeyDown(KeyCode.Space) && !isSequenceActive)
-        {
             StartCoroutine(ActivateSequence());
-        }
+    }
 
-        // Handle mouse clicks on objects
-        if (Input.GetMouseButtonDown(0)) // Left mouse button
+    public void CheckAnswer(int button)
+    {
+        if (button == correctIndex)
         {
-            HandleMouseClick();
+            if (correctFeedbackObject != null)
+            correctFeedbackObject.SetActive(true);
+            timer.AddCompleted(1f);
+        }
+        else
+        {
+        if (wrongFeedbackObject != null)
+        {
+            timer.AddStrike();
+            wrongFeedbackObject.SetActive(true);
+            Invoke(nameof(HideWrongFeedback), 1f);
+        }
         }
     }
-    private void HandleMouseClick()
-    {
-        // Raycast from the mouse position
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit))
-        {
-            GameObject clickedObject = hit.collider.gameObject;
 
-            // Find the clicked object in the light objects
-            for (int i = 0; i < buttonObjects.Length; i++)
-            {
-                if (buttonObjects[i] == clickedObject)
-                {
-                    if (i + 1 == correctIndex) // Correct index is 1-based
-                    {
-                        // Activate correct feedback
-                        ShowFeedback(correctFeedbackObject);
-                    }
-                    else
-                    {
-                        // Activate incorrect feedback
-                        ShowFeedback(incorrectFeedbackObject);
-                    }
-                    break;
-                }
-            }
-        }
-    }
-    private void ShowFeedback(GameObject feedbackObject)
+    private void HideWrongFeedback()
     {
-        if (feedbackObject != null)
-        {
-            feedbackObject.SetActive(true);
-            // Deactivate the feedback object after a short delay
-            Invoke(nameof(HideFeedback), 1f);
-        }
-    }
-    private void HideFeedback()
-    {
-        if (correctFeedbackObject != null)
-            correctFeedbackObject.SetActive(false);
-
-        if (incorrectFeedbackObject != null)
-            incorrectFeedbackObject.SetActive(false);
+        if (wrongFeedbackObject != null)
+            wrongFeedbackObject.SetActive(false);
     }
 }

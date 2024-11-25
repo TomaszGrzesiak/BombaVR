@@ -70,6 +70,8 @@ public class Timer : MonoBehaviour
     // Add a strike and handle related logic
     public void AddStrike()
     {
+        if (strikeCount < 5)
+        {
         strikeCount++;
         Debug.Log($"Strike added! Total strikes: {strikeCount}");
         strikeText.text += "X";
@@ -78,7 +80,9 @@ public class Timer : MonoBehaviour
         if (strikeCount >= 3)
         {
             Debug.Log("Three strikes! Stopping the timer.");
+            timerText.text = "BOOM";
             StopTimer();
+        }
         }
     }
 
