@@ -19,9 +19,9 @@ void Update()
 {
     if (!Completed)
     {
-            Debug.Log($"Circuit1 local X: {Circuit1.transform.localEulerAngles.x}");
-Debug.Log($"Circuit2 local X: {Circuit2.transform.localEulerAngles.x}");
-Debug.Log($"Circuit3 local X: {Circuit3.transform.localEulerAngles.x}");
+        //Debug.Log($"Circuit1 local X: {Circuit1.transform.localEulerAngles.x}");
+        //Debug.Log($"Circuit2 local X: {Circuit2.transform.localEulerAngles.x}");
+        //Debug.Log($"Circuit3 local X: {Circuit3.transform.localEulerAngles.x}");
         if (IsInRotationRange(Circuit1.transform.localEulerAngles.x, 75f, 92f) &&
             IsInRotationRange(Circuit2.transform.localEulerAngles.x, 350f, 3f) &&
             IsInRotationRange(Circuit3.transform.localEulerAngles.x, 77f, 95f))

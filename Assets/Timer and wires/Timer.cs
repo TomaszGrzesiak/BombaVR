@@ -77,7 +77,7 @@ public class Timer : MonoBehaviour
         strikeText.text += "X";
 
         // Optional: Take an action when strikes reach a certain number
-        if (strikeCount >= 3)
+        if (strikeCount >= 5)
         {
             Debug.Log("Three strikes! Stopping the timer.");
             timerText.text = "BOOM";
@@ -91,10 +91,11 @@ public class Timer : MonoBehaviour
         TasksCompleted += add;
         Debug.Log($"Completed a task! Total : {TasksCompleted}");
 
-            if (TasksCompleted >= 6)
+            if (TasksCompleted >= 5)
             {
                 StopTimer();
                 timerText.text = "Nice";
+                timerText.color = Color.green;
             }
     }
 }

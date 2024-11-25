@@ -20,6 +20,7 @@ public class SequencePuzzleManager : MonoBehaviour
 
     // Flag to prevent re-triggering the sequence
     private bool isSequenceActive = false;
+    private bool finished = false;
     void Start()
     {
         // Ensure feedback objects are inactive initially
@@ -66,11 +67,12 @@ public class SequencePuzzleManager : MonoBehaviour
 
     public void CheckAnswer(int button)
     {
-        if (button == correctIndex)
+        if (button == correctIndex && !finished)
         {
             if (correctFeedbackObject != null)
             correctFeedbackObject.SetActive(true);
             timer.AddCompleted(1f);
+            finished = true;
         }
         else
         {

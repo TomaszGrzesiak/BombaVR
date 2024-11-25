@@ -749,6 +749,8 @@ MonoBehaviour:
   ClockwiseButton: {fileID: 1911130406}
   CounterClockwiseButton: {fileID: 1535437502}
   rotationSpeed: 20
+  statusMaterial: {fileID: 0}
+  statusRenderer: {fileID: 0}
 --- !u!64 &40776545
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -830,8 +832,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6d757a5c82d4e464ea048aba6347db57, type: 2}
-  m_sharedMaterial: {fileID: 5645615326834073680, guid: 6d757a5c82d4e464ea048aba6347db57, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -16305,6 +16307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81e0e4462afcc7c4cbac6373f6d08a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timer: {fileID: 0}
   lightObjects:
   - {fileID: 769443414}
   - {fileID: 1390400017}
@@ -16328,7 +16331,7 @@ MonoBehaviour:
   activationSequence: 0500000003000000070000000100000001000000
   correctIndex: 5
   correctFeedbackObject: {fileID: 1552881764}
-  incorrectFeedbackObject: {fileID: 1416885901}
+  wrongFeedbackObject: {fileID: 0}
 --- !u!1 &1755458485
 GameObject:
   m_ObjectHideFlags: 0
@@ -16736,11 +16739,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 8077376627999728891, guid: c5a2ec84315608545879c09d58cbec82, type: 3}
---- !u!1 &1768940139 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: -3766851297557785208, guid: c5a2ec84315608545879c09d58cbec82, type: 3}
-  m_PrefabInstance: {fileID: 66873205}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1775510854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -19268,14 +19266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e76278d3103ad3344803b26d3e8f1a14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Blue: {fileID: 29607169}
-  Yellow: {fileID: 1854798648}
-  Red: {fileID: 1767490368}
-  Green: {fileID: 813445560}
-  BlueCut: {fileID: 1768940139}
-  YellowCut: {fileID: 257599127}
-  RedCut: {fileID: 9887677}
-  GreenCut: {fileID: 587165823}
+  Cut: {fileID: 0}
   outline: {fileID: 29607180}
 --- !u!1 &2085515217
 GameObject:

@@ -11,11 +11,14 @@ public class Encrypt : MonoBehaviour
     public Button checkButton; // Button to check the user's answer
     public Button reloadButton; // Button to reload with a new case
 
+    public Timer timer;
+
     public LetterChooser letterChooser; // Reference to the LetterChooser class
 
     private string originalWord;
     private string encodedWord;
     private int shift;
+    private bool finished = false;
 
     private readonly string[] predefinedWords = { "start", "clean", "plane" }; // Predefined words
 
@@ -26,8 +29,8 @@ public class Encrypt : MonoBehaviour
         resultText.text = "";
 
         // Add listeners to buttons
-        checkButton.onClick.AddListener(CheckDecodedWord);
-        reloadButton.onClick.AddListener(LoadRandomWord);
+        //checkButton.onClick.AddListener(CheckDecodedWord);
+        //reloadButton.onClick.AddListener(LoadRandomWord);
     }
 
     void LoadRandomWord()
@@ -73,18 +76,21 @@ public class Encrypt : MonoBehaviour
     }
 
     // Decode and validate user's input
-    void CheckDecodedWord()
+    public void CheckDecodedWord()
     {
         string userDecodedWord = letterChooser.GetChosenWord(); // Get the word from LetterChooser
-        if (userDecodedWord == originalWord)
+        if (userDecodedWord == originalWord && !finished)
         {
-            resultText.text = "Correct! You decoded the word!";
+            finished = true;
+            resultText.text = "Correct!";
             resultText.color = Color.green;
+            timer.AddCompleted(1f);
         }
         else
         {
-            resultText.text = "Incorrect. Try again!";
+            resultText.text = "Incorrect";
             resultText.color = Color.red;
+            timer.AddStrike();
         }
     }
 }
